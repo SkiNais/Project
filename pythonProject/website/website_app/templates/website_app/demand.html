@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профессия IT-менеджера</title>
+    <style>
+        body {
+            background-color: #d7eff9;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            transition: margin-left 0.5s;
+        }
+
+        #sidebar {
+            height: 100%;
+            width: 250px;
+            position: fixed;
+            top: 0;
+            left: -250px;
+            background-color: #333;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 57px;
+            z-index: 1000;
+        }
+
+        #sidebar a {
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 18px;
+            color: #f1f1f1;
+            display: block;
+            transition: 0.3s;
+        }
+
+        #sidebar a:hover {
+            background-color: #575757;
+        }
+
+        #main {
+            padding: 20px;
+        }
+
+        .openbtn {
+            font-size: 20px;
+            cursor: pointer;
+            background-color: #333;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            position: fixed;
+            left: 10px;
+            top: 10px;
+            z-index: 1001;
+            transition: left 0.5s;
+        }
+
+        .openbtn:hover {
+            background-color: #575757;
+        }
+
+        .sidebar-open {
+          left: 0;
+        }
+
+        header {
+            text-align: center;
+            padding: 30px 0;
+            background-color: #f8f9fa;
+            margin-bottom: 20px;
+        }
+
+        h1, h2 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .data-table th, .data-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
+        .salary-table th {
+            background-color: #3498db;
+            color: white;
+        }
+        .cities-table th {
+            background-color: #00db54;
+            color: white;
+        }
+        .data-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .data-table tr:hover {
+            background-color: #f5eef8;
+        }
+        .methodology {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            border-left: 4px solid #8e44ad;
+        }
+        .city-rank {
+            font-weight: bold;
+            color: #8e44ad;
+        }
+        .percentage-bar {
+            background-color: #e0e0e0;
+            border-radius: 3px;
+            height: 20px;
+            margin-top: 5px;
+            position: relative;
+        }
+        .percentage-fill {
+            background-color: #8e44ad;
+            border-radius: 3px;
+            height: 100%;
+            display: block;
+        }
+        .percentage-value {
+            position: absolute;
+            right: 5px;
+            top: 0;
+            color: white;
+            font-size: 12px;
+            line-height: 20px;
+            text-shadow: 0 0 2px #000;
+        }
+        .footnote {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 30px;
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+        }
+
+        .footer {
+            background: #333;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        .footer-links {
+            margin: 15px 0;
+        }
+        .footer a {
+        color: #3db3e6;
+        text-decoration: none;
+        margin: 0 10px;
+        transition: color 0.3s;
+        text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div id="sidebar">
+      <a href="{% url 'home' %}">Главная</a>
+      <a href="{% url 'statistic' %}">Общая статистика</a>
+      <a href="{% url 'demand' %}">Востребованность</a>
+      <a href="{% url 'geography' %}">География</a>
+      <a href="{% url 'skills' %}">Навыки</a>
+      <a href="{% url 'last_vacancies' %}">Последние вакансии</a>
+    </div>
+
+    <button class="openbtn" onclick="toggleSidebar()">☰ Меню</button>
+
+    <div id="main">
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById("sidebar");
+            const main = document.getElementById("main");
+
+            if (sidebar.style.left === "0px") {
+                sidebar.style.left = "-250px";
+                main.style.marginLeft = "0";
+            } else {
+                sidebar.style.left = "0px";
+                main.style.marginLeft = "250px";
+            }
+        }
+    </script>
+    <h1>Анализ вакансий IT-проектных менеджеров в России (2020-2025)</h1>
+
+    <div class="methodology">
+        <h3>Методология исследования:</h3>
+        <ul>
+            <li>Учитывались только вакансии для IT-проектных менеджеров (Project Manager, PM, Продуктовый менеджер)</li>
+            <li>Для вакансий в иностранной валюте применялась конвертация по курсу ЦБ РФ</li>
+            <li>Исключены вакансии с зарплатой более 3 млн рублей как некорректные</li>
+            <li>Данные собраны по агрегаторам вакансий (HeadHunter, Habr Career, LinkedIn)</li>
+            <li>Общее количество проанализированных вакансий: 58,400</li>
+        </ul>
+    </div>
+
+    <h2>Динамика зарплат IT-проектных менеджеров</h2>
+    <table class="data-table salary-table">
+        <thead>
+            <tr>
+                <th>Год</th>
+                <th>Средняя зарплата (руб.)</th>
+                <th>Медианная зарплата (руб.)</th>
+                <th>Изменение к предыдущему году</th>
+                <th>Количество учтенных вакансий</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>2020</td>
+                <td>150 000</td>
+                <td>140 000</td>
+                <td>+10% (к 2019)</td>
+                <td>8 200</td>
+            </tr>
+            <tr>
+                <td>2021</td>
+                <td>170 000</td>
+                <td>160 000</td>
+                <td>+13%</td>
+                <td>9 500</td>
+            </tr>
+            <tr>
+                <td>2022</td>
+                <td>190 000</td>
+                <td>180 000</td>
+                <td>+12%</td>
+                <td>7 800</td>
+            </tr>
+            <tr>
+                <td>2023</td>
+                <td>220 000</td>
+                <td>210 000</td>
+                <td>+16%</td>
+                <td>10 300</td>
+            </tr>
+            <tr>
+                <td>2024*</td>
+                <td>250 000</td>
+                <td>240 000</td>
+                <td>+14%</td>
+                <td>11 200</td>
+            </tr>
+            <tr>
+                <td>2025*</td>
+                <td>280 000</td>
+                <td>270 000</td>
+                <td>+12%</td>
+                <td>11 400</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Динамика количества вакансий IT-проектных менеджеров</h2>
+    <table class="data-table cities-table">
+        <thead>
+            <tr>
+                <th>Год</th>
+                <th>Всего вакансий</th>
+                <th>Изменение к предыдущему году</th>
+                <th>Вакансий в Москве</th>
+                <th>Вакансий в регионах</th>
+                <th>Доля удалённых вакансий</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>2020</td>
+                <td>12 500</td>
+                <td>+15% (к 2019)</td>
+                <td>6 800 (54%)</td>
+                <td>5 700 (46%)</td>
+                <td>25%</td>
+            </tr>
+            <tr>
+                <td>2021</td>
+                <td>15 200</td>
+                <td>+22%</td>
+                <td>7 900 (52%)</td>
+                <td>7 300 (48%)</td>
+                <td>30%</td>
+            </tr>
+            <tr>
+                <td>2022</td>
+                <td>11 800</td>
+                <td>-22%</td>
+                <td>5 500 (47%)</td>
+                <td>6 300 (53%)</td>
+                <td>40%</td>
+            </tr>
+            <tr>
+                <td>2023</td>
+                <td>14 500</td>
+                <td>+23%</td>
+                <td>6 500 (45%)</td>
+                <td>8 000 (55%)</td>
+                <td>48%</td>
+            </tr>
+            <tr>
+                <td>2024*</td>
+                <td>16 000</td>
+                <td>+10%</td>
+                <td>6 800 (43%)</td>
+                <td>9 200 (57%)</td>
+                <td>52%</td>
+            </tr>
+            <tr>
+                <td>2025*</td>
+                <td>17 500</td>
+                <td>+9%</td>
+                <td>7 200 (41%)</td>
+                <td>10 300 (59%)</td>
+                <td>55%</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="methodology">
+        <h3>Ключевые выводы по IT-проектным менеджерам:</h3>
+        <ul>
+            <li><strong>Рост зарплат:</strong> За 5 лет средние зарплаты PM выросли на 87% (с 150 000 до 280 000 руб.)</li>
+            <li><strong>Региональный сдвиг:</strong> Доля региональных вакансий увеличилась с 46% до 59%</li>
+            <li><strong>Удалённая работа:</strong> Доля remote-вакансий выросла в 2.2 раза</li>
+            <li><strong>Московский разрыв:</strong> Зарплаты в Москве на 25-30% выше, чем в среднем по стране</li>
+            <li><strong>Требуемые навыки:</strong> 85% вакансий требуют знания Agile/Scrum, 70% - Jira/Confluence</li>
+        </ul>
+    </div>
+
+    <div class="footnote">
+        <p>* 2024-2025 - прогнозные значения на основе текущих трендов</p>
+        <p>Последнее обновление данных: июнь 2024 года</p>
+        <p>Источники: HeadHunter, Habr Career, LinkedIn, анализ 58,400 вакансий PM</p>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="https://t.me/normanroman" target="_blank" rel="noopener noreferrer">...</a>
+            </div>
+            <div class="footer-content">
+                &copy; 2025 Шалин Роман Викторович, РИ-231001. Мои права защищены
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

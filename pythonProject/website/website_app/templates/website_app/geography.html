@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профессия IT-менеджера</title>
+    <style>
+        body {
+            background-color: #d7eff9;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            transition: margin-left 0.5s;
+        }
+
+        #sidebar {
+            height: 100%;
+            width: 250px;
+            position: fixed;
+            top: 0;
+            left: -250px;
+            background-color: #333;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 57px;
+            z-index: 1000;
+        }
+
+        #sidebar a {
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 18px;
+            color: #f1f1f1;
+            display: block;
+            transition: 0.3s;
+        }
+
+        #sidebar a:hover {
+            background-color: #575757;
+        }
+
+        #main {
+            padding: 20px;
+        }
+
+        .openbtn {
+            font-size: 20px;
+            cursor: pointer;
+            background-color: #333;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            position: fixed;
+            left: 10px;
+            top: 10px;
+            z-index: 1001;
+            transition: left 0.5s;
+        }
+
+        .openbtn:hover {
+            background-color: #575757;
+        }
+
+        .sidebar-open {
+          left: 0;
+        }
+
+        header {
+            text-align: center;
+            padding: 30px 0;
+            background-color: #f8f9fa;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .cities-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .cities-table th, .cities-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
+        .cities-table th {
+            background-color: #8e44ad;
+            color: white;
+            font-weight: bold;
+        }
+        .cities-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .cities-table tr:hover {
+            background-color: #f5eef8;
+        }
+        .methodology {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            border-left: 4px solid #8e44ad;
+        }
+        .chart-container {
+            margin: 40px 0;
+            height: 400px;
+        }
+        .footnote {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 30px;
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+        }
+        .highlight {
+            background-color: #fffde7;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+        .city-rank {
+            font-weight: bold;
+            color: #8e44ad;
+        }
+        .percentage-bar {
+            background-color: #e0e0e0;
+            border-radius: 3px;
+            height: 20px;
+            margin-top: 5px;
+            position: relative;
+        }
+        .percentage-fill {
+            background-color: #8e44ad;
+            border-radius: 3px;
+            height: 100%;
+            display: block;
+        }
+        .percentage-value {
+            position: absolute;
+            right: 5px;
+            top: 0;
+            color: white;
+            font-size: 12px;
+            line-height: 20px;
+            text-shadow: 0 0 2px #000;
+        }
+
+        .footer {
+            background: #333;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        .footer-links {
+            margin: 15px 0;
+        }
+        .footer a {
+        color: #3db3e6;
+        text-decoration: none;
+        margin: 0 10px;
+        transition: color 0.3s;
+        text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div id="sidebar">
+      <a href="{% url 'home' %}">Главная</a>
+      <a href="{% url 'statistic' %}">Общая статистика</a>
+      <a href="{% url 'demand' %}">Востребованность</a>
+      <a href="{% url 'geography' %}">География</a>
+      <a href="{% url 'skills' %}">Навыки</a>
+      <a href="{% url 'last_vacancies' %}">Последние вакансии</a>
+    </div>
+
+    <button class="openbtn" onclick="toggleSidebar()">☰ Меню</button>
+
+    <div id="main">
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById("sidebar");
+            const main = document.getElementById("main");
+
+            if (sidebar.style.left === "0px") {
+                sidebar.style.left = "-250px";
+                main.style.marginLeft = "0";
+            } else {
+                sidebar.style.left = "0px";
+                main.style.marginLeft = "250px";
+            }
+        }
+    </script>
+    <h1>Зарплаты и вакансии IT-проектных менеджеров по городам России (2025)</h1>
+
+    <div class="methodology">
+        <h3>Методология расчета:</h3>
+        <ul>
+            <li>Данные собраны за последние 12 месяцев (июнь 2024 - май 2025)</li>
+            <li>Учитывались только вакансии для IT-проектных менеджеров (Project Manager, PM, Продуктовый менеджер)</li>
+            <li>Для вакансий в иностранной валюте применялась конвертация по курсу ЦБ РФ на первое число месяца публикации</li>
+            <li>Исключены вакансии с зарплатой более 3 млн рублей как некорректные</li>
+            <li>В расчет бралось среднее значение вилки зарплат</li>
+            <li>Учитывались только города с более чем 50 вакансий за период</li>
+            <li>Общее количество учтенных вакансий: 12,800</li>
+        </ul>
+    </div>
+
+    <table class="cities-table">
+        <thead>
+            <tr>
+                <th>Место</th>
+                <th>Город</th>
+                <th>Средняя зарплата (руб.)</th>
+                <th>Медианная зарплата (руб.)</th>
+                <th>Количество вакансий</th>
+                <th>Доля вакансий</th>
+                <th>Соотношение к Москве</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="city-rank">1</td>
+                <td>Москва</td>
+                <td>280 000</td>
+                <td>250 000</td>
+                <td>5 200</td>
+                <td>
+                    <div class="percentage-bar">
+                        <div class="percentage-fill" style="width: 40.6%"></div>
+                        <span class="percentage-value">40.6%</span>
+                    </div>
+                </td>
+                <td>100%</td>
+            </tr>
+            <tr>
+                <td class="city-rank">2</td>
+                <td>Санкт-Петербург</td>
+                <td>230 000</td>
+                <td>210 000</td>
+                <td>2 800</td>
+                <td>
+                    <div class="percentage-bar">
+                        <div class="percentage-fill" style="width: 21.9%"></div>
+                        <span class="percentage-value">21.9%</span>
+                    </div>
+                </td>
+                <td>82%</td>
+            </tr>
+            <tr>
+                <td class="city-rank">3</td>
+                <td>Казань</td>
+                <td>190 000</td>
+                <td>180 000</td>
+                <td>650</td>
+                <td>
+                    <div class="percentage-bar">
+                        <div class="percentage-fill" style="width: 5.1%"></div>
+                        <span class="percentage-value">5.1%</span>
+                    </div>
+                </td>
+                <td>68%</td>
+            </tr>
+            <tr>
+                <td class="city-rank">4</td>
+                <td>Новосибирск</td>
+                <td>185 000</td>
+                <td>175 000</td>
+                <td>620</td>
+                <td>
+                    <div class="percentage-bar">
+                        <div class="percentage-fill" style="width: 4.8%"></div>
+                        <span class="percentage-value">4.8%</span>
+                    </div>
+                </td>
+                <td>66%</td>
+            </tr>
+            <tr>
+                <td class="city-rank">5</td>
+                <td>Екатеринбург</td>
+                <td>180 000</td>
+                <td>170 000</td>
+                <td>580</td>
+                <td>
+                    <div class="percentage-bar">
+                        <div class="percentage-fill" style="width: 4.5%"></div>
+                        <span class="percentage-value">4.5%</span>
+                    </div>
+                </td>
+                <td>64%</td>
+            </tr>
+            <tr>
+                <td class="city-rank">6</td>
+                <td>Нижний Новгород</td>
+                <td>175 000</td>
+                <td>165 000</td>
+                <td>420</td>
+                <td>
+                    <div class="percentage-bar">
+                        <div class="percentage-fill" style="width: 3.3%"></div>
+                        <span class="percentage-value">3.3%</span>
+                    </div>
+                </td>
+                <td>63%</td>
+            </tr>
+            <tr>
+                <td class="city-rank">7</td>
+                <td>Красноярск</td>
+                <td>170 000</td>
+                <td>160 000</td>
+                <td>350</td>
+                <td>
+                    <div class="percentage-bar">
+                        <div class="percentage-fill" style="width: 2.7%"></div>
+                        <span class="percentage-value">2.7%</span>
+                    </div>
+                </td>
+                <td>61%</td>
+            </tr>
+            <tr>
+                <td class="city-rank">8</td>
+                <td>Воронеж</td>
+                <td>165 000</td>
+                <td>155 000</td>
+                <td>320</td>
+                <td>
+                    <div class="percentage-bar">
+                        <div class="percentage-fill" style="width: 2.5%"></div>
+                        <span class="percentage-value">2.5%</span>
+                    </div>
+                </td>
+                <td>59%</td>
+            </tr>
+            <tr>
+                <td class="city-rank">9</td>
+                <td>Уфа</td>
+                <td>160 000</td>
+                <td>150 000</td>
+                <td>290</td>
+                <td>
+                    <div class="percentage-bar">
+                        <div class="percentage-fill" style="width: 2.3%"></div>
+                        <span class="percentage-value">2.3%</span>
+                    </div>
+                </td>
+                <td>57%</td>
+            </tr>
+            <tr>
+                <td class="city-rank">10</td>
+                <td>Ростов-на-Дону</td>
+                <td>155 000</td>
+                <td>145 000</td>
+                <td>270</td>
+                <td>
+                    <div class="percentage-bar">
+                        <div class="percentage-fill" style="width: 2.1%"></div>
+                        <span class="percentage-value">2.1%</span>
+                    </div>
+                </td>
+                <td>55%</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="methodology">
+        <h3>Ключевые наблюдения для IT-проектных менеджеров:</h3>
+        <p><strong>Зарплатный разрыв:</strong> Разница между Москвой и регионами составляет 35-45% (меньше, чем у разработчиков)</p>
+        <p><strong>Концентрация вакансий:</strong> На Москву и Петербург приходится 62.5% всех вакансий PM</p>
+        <p><strong>Требуемые навыки:</strong> В 78% вакансий требуются Agile/Scrum, в 65% - Jira/Confluence</p>
+        <p><strong>Топ-3 городов по росту зарплат (2024-2025):</strong></p>
+        <ol>
+            <li>Казань (+18%)</li>
+            <li>Новосибирск (+15%)</li>
+            <li>Екатеринбург (+14%)</li>
+        </ol>
+    </div>
+
+    <div class="footnote">
+        <p>Данные актуальны на: июнь 2025 года</p>
+        <p>Источники: HeadHunter, Habr Career, анализ 12,800 вакансий PM</p>
+        <p>Примечание: для удалённых вакансий указывался город работодателя</p>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="https://t.me/normanroman" target="_blank" rel="noopener noreferrer">...</a>
+            </div>
+            <div class="footer-content">
+                &copy; 2025 Шалин Роман Викторович, РИ-231001. Мои права защищены
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            background-color: #d7eff9;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            transition: margin-left 0.5s;
+        }
+
+        #sidebar {
+            height: 100%;
+            width: 250px;
+            position: fixed;
+            top: 0;
+            left: -250px;
+            background-color: #333;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 57px;
+            z-index: 1;
+        }
+
+        #sidebar a {
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 18px;
+            color: #f1f1f1;
+            display: block;
+            transition: 0.3s;
+        }
+
+        #sidebar a:hover {
+            background-color: #575757;
+        }
+
+        #main {
+            padding: 20px;
+            margin-left: 0;
+        }
+
+        .openbtn {
+            font-size: 20px;
+            cursor: pointer;
+            background-color: #333;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            position: fixed;
+            left: 10px;
+            top: 10px;
+            z-index: 2;
+        }
+
+        .openbtn:hover {
+            background-color: #575757;
+        }
+
+        header {
+            text-align: center;
+            padding: 30px 0;
+            background-color: #f8f9fa;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .content {
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+
+        .footer {
+            background: #333;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        .footer-links {
+            margin: 15px 0;
+        }
+        .footer a {
+        color: #3db3e6;
+        text-decoration: none;
+        margin: 0 10px;
+        transition: color 0.3s;
+        text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div id="sidebar">
+        <a href="{% url 'home' %}">Главная</a>
+        <a href="{% url 'statistic' %}">Общая статистика</a>
+        <a href="{% url 'demand' %}">Востребованность</a>
+        <a href="{% url 'geography' %}">География</a>
+        <a href="{% url 'skills' %}">Навыки</a>
+        <a href="{% url 'last_vacancies' %}">Последние вакансии</a>
+    </div>
+
+    <button class="openbtn" onclick="toggleSidebar()">☰ Меню</button>
+
+    <div id="main">
+    </div>
+    <h1 align="center">Анализ вакансий IT-проектных менеджеров в России (2020-2025)</h1>
+
+        <div class="content">
+            <p>IT-менеджер - это специалист, который сочетает в себе технические знания и управленческие навыки для эффективного руководства IT-проектами и командами. Эта профессия находится на стыке технологий и бизнеса, что делает ее одной из самых востребованных на современном рынке труда.</p>
+
+            <p>Основная задача IT-менеджера - обеспечить бесперебойную работу информационных систем компании и их постоянное развитие в соответствии с бизнес-целями. В отличие от технических специалистов, которые сосредоточены на решении конкретных задач, IT-менеджер должен видеть общую картину и уметь согласовывать работу IT-подразделения с потребностями других отделов компании.</p>
+
+            <p>В обязанности IT-менеджера обычно входит: планирование IT-стратегии компании, управление IT-проектами, контроль за выполнением работ, распределение ресурсов, подбор и управление IT-персоналом, взаимодействие с подрядчиками и поставщиками, обеспечение информационной безопасности, контроль за IT-бюджетом, внедрение новых технологий и систем.</p>
+
+            <p>Для успешной работы IT-менеджеру необходимы как технические знания (понимание принципов работы сетей, баз данных, облачных технологий, кибербезопасности), так и "мягкие" навыки (коммуникабельность, лидерские качества, умение вести переговоры, стратегическое мышление). Хороший IT-менеджер должен уметь объяснять сложные технические вопросы простым языком для нетехнических специалистов.</p>
+
+            <p>Карьерный путь в IT-менеджменте обычно начинается с технических позиций (программист, системный администратор, тестировщик), затем специалист может перейти на позицию руководителя проекта или команды, а затем - на должность IT-директора (CIO).
+В крупных компаниях возможна специализация в определенных областях: управление разработкой, инфраструктурой, безопасностью или данными.</p>
+
+            <p>Зарплата IT-менеджера зависит от опыта, региона и масштабов компании. В среднем по России зарплата начинается от 100 000 рублей, а в Москве и крупных IT-компаниях может достигать 300 000 рублей и более для топ-менеджеров. На международном рынке IT-менеджеры высокого уровня могут зарабатывать значительно больше.</p>
+
+            <p>Перспективы профессии очень хорошие - с развитием цифровизации спрос на квалифицированных IT-менеджеров будет только расти. Особенно востребованы специалисты, разбирающиеся в современных трендах: облачных технологиях, больших данных, искусственном интеллекте, интернете вещей и кибербезопасности.</p>
+
+            <p>Данный сайт разработан для изучения статистических данных посвященных вакансии IT-менеджера, а так же последних вакансий в этой сфере.</p>
+        </div>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById("sidebar");
+            const main = document.getElementById("main");
+
+            if (sidebar.style.left === "0px") {
+                sidebar.style.left = "-250px";
+                main.style.marginLeft = "0";
+            } else {
+                sidebar.style.left = "0px";
+                main.style.marginLeft = "250px";
+            }
+        }
+    </script>
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="https://t.me/normanroman" target="_blank" rel="noopener noreferrer">...</a>
+            </div>
+            <div class="footer-content">
+                &copy; 2025 Шалин Роман Викторович, РИ-231001. Мои права защищены
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

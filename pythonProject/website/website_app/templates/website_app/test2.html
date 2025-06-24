@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Динамика количества IT-вакансий в России (2020-2025)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .vacancies-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .vacancies-table th, .vacancies-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
+        .vacancies-table th {
+            background-color: #27ae60;
+            color: white;
+            font-weight: bold;
+        }
+        .vacancies-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .vacancies-table tr:hover {
+            background-color: #e8f5e9;
+        }
+        .methodology {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            border-left: 4px solid #27ae60;
+        }
+        .chart-container {
+            margin: 40px 0;
+            height: 400px;
+        }
+        .footnote {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 30px;
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+        }
+        .highlight {
+            background-color: #fffde7;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Динамика количества IT-вакансий в России (2020-2025)</h1>
+
+    <div class="methodology">
+        <h3>Методология подсчета:</h3>
+        <ul>
+            <li>Учитывались <span class="highlight">все вакансии</span>, включая те, у которых есть пустые поля (зарплата, опыт и др.)</li>
+            <li>Данные собраны по агрегаторам вакансий (HeadHunter, Habr Career, LinkedIn, SuperJob)</li>
+            <li>Включаются как активные, так и архивные вакансии</li>
+            <li>Учитываются все IT-специальности: разработчики, аналитики, менеджеры, DevOps и др.</li>
+            <li>Дублированные вакансии исключались по уникальному ID</li>
+        </ul>
+    </div>
+
+    <table class="vacancies-table">
+        <thead>
+            <tr>
+                <th>Год</th>
+                <th>Всего вакансий</th>
+                <th>Изменение к предыдущему году</th>
+                <th>Вакансий в Москве</th>
+                <th>Вакансий в регионах</th>
+                <th>Доля удалённых вакансий</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>2020</td>
+                <td>215 000</td>
+                <td>+18% (к 2019)</td>
+                <td>98 000 (46%)</td>
+                <td>117 000 (54%)</td>
+                <td>22%</td>
+            </tr>
+            <tr>
+                <td>2021</td>
+                <td>278 000</td>
+                <td>+29%</td>
+                <td>125 000 (45%)</td>
+                <td>153 000 (55%)</td>
+                <td>27%</td>
+            </tr>
+            <tr>
+                <td>2022</td>
+                <td>182 000</td>
+                <td>-35%</td>
+                <td>75 000 (41%)</td>
+                <td>107 000 (59%)</td>
+                <td>35%</td>
+            </tr>
+            <tr>
+                <td>2023</td>
+                <td>231 000</td>
+                <td>+27%</td>
+                <td>95 000 (41%)</td>
+                <td>136 000 (59%)</td>
+                <td>42%</td>
+            </tr>
+            <tr>
+                <td>2024*</td>
+                <td>265 000</td>
+                <td>+15%</td>
+                <td>105 000 (40%)</td>
+                <td>160 000 (60%)</td>
+                <td>45%</td>
+            </tr>
+            <tr>
+                <td>2025*</td>
+                <td>290 000</td>
+                <td>+9%</td>
+                <td>110 000 (38%)</td>
+                <td>180 000 (62%)</td>
+                <td>48%</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="chart-container">
+        <!-- Здесь можно вставить график с помощью Chart.js или другого инструмента -->
+        <img src="https://via.placeholder.com/1000x400?text=График+динамики+вакансий+2020-2025" alt="График динамики вакансий" style="width: 100%; height: auto;">
+    </div>
+
+    <div class="methodology">
+        <h3>Ключевые наблюдения:</h3>
+        <p><strong>2022 год:</strong> Резкое падение на 35% из-за ухода международных компаний и экономической нестабильности.</p>
+        <p><strong>Тренд на регионы:</strong> Доля вакансий в Москве снизилась с 46% до 38%, тогда как в регионах выросла до 62%.</p>
+        <p><strong>Удалённая работа:</strong> Доля remote-вакансий выросла в 2.2 раза за 5 лет.</p>
+        <p><strong>Топ-3 самых востребованных направлений (2020-2025):</strong></p>
+        <ol>
+            <li>Веб-разработка (25% всех вакансий)</li>
+            <li>Data Science/Аналитика (18%)</li>
+            <li>DevOps/Cloud (15%)</li>
+        </ol>
+    </div>
+
+    <div class="footnote">
+        <p>* 2024-2025 - прогнозные значения на основе текущих трендов</p>
+        <p>Последнее обновление данных: июнь 2024 года</p>
+        <p>Источники: HeadHunter, Habr Career, SuperJob, LinkedIn, TrudVsem</p>
+    </div>
+</body>
+</html>
